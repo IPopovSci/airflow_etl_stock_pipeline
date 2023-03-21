@@ -6,6 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/database" />
       <excludeFolder url="file://$MODULE_DIR$/files" />
       <excludeFolder url="file://$MODULE_DIR$/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludePattern pattern="airflow.cfg" />
       <excludePattern pattern="airflow-webserver.pid" />
       <excludePattern pattern="airflow-worker.pid" />
