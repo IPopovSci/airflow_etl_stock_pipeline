@@ -6,8 +6,10 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-'''An Ibm Cloudant Hook
-The one included with airflow relies on outdated facade library'''
+'''Airflow hook for interacting with an IBM Cloudant database.
+The one included with airflow relies on outdated facade library.
+This hook performs basic operations such as executing queries against a Cloudant database
+or creating and deleting documents.'''
 class CloudantHook(BaseHook):
     conn_name_attr = "cloudant_conn_id"
     default_conn_name = "CLOUDANT"
@@ -51,7 +53,7 @@ class CloudantHook(BaseHook):
                 document=document,
                 rev=rev
             ).get_result()
-            return print(f"Created document for ticker {symbol} successfully")
+            return str(f"Created document for ticker {symbol} successfully")
         except ApiException as ae:
             if ae.code == 409:
                 raise (ApiException(message=f'Cannot create "{db}" document, ' +

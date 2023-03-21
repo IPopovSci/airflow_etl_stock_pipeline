@@ -14,7 +14,7 @@ class CreateDatabaseOperator(BaseOperator):
 
     def execute(self, context):
         hook = CloudantHook()
-        message = hook.create_db(db=self.db)
+        hook.create_db(db=self.db)
         return None
 
 class CreateDocumentOperator(BaseOperator): #data_type Stock or News
@@ -38,7 +38,7 @@ class CreateDocumentOperator(BaseOperator): #data_type Stock or News
 
         self.data = cursor.fetchall()[0][0]
 
-        message = hook.create_document(db=self.db,data=self.data,symbol=self.symbol,rev=self.rev)
+        hook.create_document(db=self.db, data=self.data, symbol=self.symbol, rev=self.rev)
         return None
 
 class CreateDateTimeViewOperator(BaseOperator):
@@ -48,7 +48,7 @@ class CreateDateTimeViewOperator(BaseOperator):
         self.symbol = symbol
     def execute(self,context):
         hook = CloudantHook()
-        message = hook.create_datetime_view(db=self.db,symbol=self.symbol)
+        hook.create_datetime_view(db=self.db, symbol=self.symbol)
         return None
 
 class GetLastUpdateDateOperator(BaseOperator):
@@ -65,12 +65,16 @@ class GetLastUpdateDateOperator(BaseOperator):
 
         try:
             last_update = message['rows'][0]['value'][0]
-        except: #Probably no file, so set a default date
+        except TypeError:
+            last_update = os.environ['start_date']
+        except IndexError:
             last_update = os.environ['start_date']
 
         try:
             rev = hook.get_document(db=self.db,symbol=self.symbol)['_rev']
-        except: #Either document doesn't exist, or some problem occured
+        except Exception as e:
+            # Any other error that may occur
+            print(f"Error occurred: {str(e)}")
             rev = None
 
         self.xcom_push(context,f'last_rev_{self.symbol}_{self.data_type}',rev)
@@ -98,7 +102,7 @@ class GetDocumentOperator(BaseOperator): #data_type stock or News
         conn=hook_postgr.get_conn()
         cursor=conn.cursor()
 
-        sql_insert = SQL("INSERT INTO {table} (ticker,info) VALUES (%(oldtick)s,%(data)s) ON CONFLICT (ticker) DO UPDATE SET info=excluded.info;").format(table=Identifier(self.data_type)) #TODO: Fix this,not propoer
+        sql_insert = SQL("INSERT INTO {table} (ticker,info) VALUES (%(oldtick)s,%(data)s) ON CONFLICT (ticker) DO UPDATE SET info=excluded.info;").format(table=Identifier(self.data_type))
         cursor.execute(sql_insert,vars={'oldtick':self.symbol + '_old','data':old_data})
         conn.commit()
 
