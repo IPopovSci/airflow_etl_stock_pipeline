@@ -1,5 +1,5 @@
 from airflow.models.baseoperator import BaseOperator
-from include.hooks.Cloudant import CloudantHook
+from hooks.Cloudant import CloudantHook
 import json
 import os
 from psycopg2.sql import Identifier,SQL

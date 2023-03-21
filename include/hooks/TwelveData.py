@@ -64,9 +64,9 @@ class TwelveDataHook(HttpHook):
         self.log.debug("Sending '%s' to url: %s", self.method, url)
         return self.run_and_check(session, prepped_request, extra_options)
 
-    def get_data(self,interval=os.environ['interval'],timezone=os.environ['timezone'],symbol=os.environ['symbol'],length=os.environ['length'],start_date=os.environ['start_date'] \
+    def get_data(self,interval=os.environ['interval'],timezone=os.environ['timezone'],symbol=os.environ['symbol'],start_date=os.environ['start_date'] \
                  ,end_date=os.environ['end_date'],dp=2,format='JSON'):
         self.method='GET'
-        body = {'interval':interval,'timezone':timezone,'symbol':symbol,'length':length,'start_date':start_date,'end_date':end_date,'dp':dp,'format':format}
+        body = {'interval':interval,'timezone':timezone,'symbol':symbol,'start_date':start_date,'end_date':end_date,'dp':dp,'format':format}
         json_data=json.dumps(self.run(endpoint='time_series',data=body).json())
         return json_data

@@ -1,10 +1,10 @@
-from include.operators.CloudantOperators import CreateDocumentOperator, \
+from operators.CloudantOperators import CreateDocumentOperator, \
     GetLastUpdateDateOperator, GetDocumentOperator
-from include.operators.DataOperators import GetDataAPI
+from operators.DataOperators import GetDataAPI
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 import pendulum
 from airflow.decorators import task_group
-from include.custom_dags.dag_structure.setting_import import symbol_list
+from custom_dags.dag_structure.setting_import import symbol_list
 
 
 def update_info():

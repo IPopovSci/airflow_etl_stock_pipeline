@@ -11,17 +11,17 @@ This is done to avoid any top-level code for optimal DAG loading'''
 default_args = {'owner': 'User', 'conn_id': 'POSTGRES', 'postgres_conn_id': 'POSTGRES', 'database': 'localstorage'}
 
 @dag('init_postgres', schedule='@once', default_args=default_args, start_date=pendulum.now('UTC'),
-              render_template_as_native_obj=True, template_searchpath="/opt/airflow/ipop_airflow_stock_pipeline/sql")
+              render_template_as_native_obj=True, template_searchpath="/opt/airflow/include/sql")
 def init_postgres():
     initialize_postgress()
 
 @dag('populate', schedule='@once', default_args=default_args, start_date=pendulum.now('UTC'),
-              render_template_as_native_obj=True, template_searchpath="/opt/airflow/ipop_airflow_stock_pipeline/sql")
+              render_template_as_native_obj=True, template_searchpath="/opt/airflow/include/sql")
 def init_dag():
     initialize_pipeline()
 
-@dag('update', schedule='@daily', default_args=default_args, start_date=pendulum.now('UTC').add(days=1),
-              render_template_as_native_obj=True, template_searchpath="/opt/airflow/ipop_airflow_stock_pipeline/sql")
+@dag('update', schedule='@daily', default_args=default_args, start_date=pendulum.now('UTC'),
+              render_template_as_native_obj=True, template_searchpath="/opt/airflow/include/sql")
 def update_dag():
     update_info()
 

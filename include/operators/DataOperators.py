@@ -1,6 +1,6 @@
 from airflow.models.baseoperator import BaseOperator
-from include.hooks.NewsApi import NewsDataHook
-from include.hooks.TwelveData import TwelveDataHook
+from hooks.NewsApi import NewsDataHook
+from hooks.TwelveData import TwelveDataHook
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 import os
 from psycopg2.sql import Identifier,SQL

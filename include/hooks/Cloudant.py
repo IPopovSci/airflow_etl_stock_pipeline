@@ -6,6 +6,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+'''An Ibm Cloudant Hook
+The one included with airflow relies on outdated facade library'''
 class CloudantHook(BaseHook):
     conn_name_attr = "cloudant_conn_id"
     default_conn_name = "CLOUDANT"

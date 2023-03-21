@@ -1,0 +1,10 @@
+/database/
+/files/
+/logs/
+/.git/
+/.idea/
+/airflow.cfg
+/airflow-webserver.pid
+/airflow-worker.pid
+/webserver_config.py
+/airflow-webserver.pid

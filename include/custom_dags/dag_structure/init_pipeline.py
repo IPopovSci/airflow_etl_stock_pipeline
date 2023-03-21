@@ -1,8 +1,8 @@
-from include.operators.CloudantOperators import CreateDatabaseOperator, CreateDocumentOperator, CreateDateTimeViewOperator
-from include.operators.DataOperators import GetDataAPI
+from operators.CloudantOperators import CreateDatabaseOperator, CreateDocumentOperator, CreateDateTimeViewOperator
+from operators.DataOperators import GetDataAPI
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 from airflow.decorators import task_group
-from include.custom_dags.dag_structure.setting_import import symbol_list
+from custom_dags.dag_structure.setting_import import symbol_list
 
 def initialize_pipeline():
     group_news=[]
