@@ -12,6 +12,8 @@ An airflow pipeline for daily updates on selected stock market companies news an
 
 ### Introduction
 
+![Project Architecture](https://github.com/IPopovSci/airflow_etl_stock_pipeline/blob/a5e7ac52e0b05673f132194248ce981b758280f1/screenshots/arch_diagram.png)
+
 This project leverages Apache Airflow to extract, transform, and load prominent data from two stock market APIs. The pipeline is designed to pull historical price data and news articles related to any specific stock or stocks of interest.
 This pipeline uses Postgres for the staging, and IBM Cloudant as final NOSQL storage database. The structure of this project makes it easy to implement additional APIs if necessary.
 
@@ -53,10 +55,10 @@ This pipeline features 3 dags to extract, load and transform stock-related data.
 database for staging, and required tables. This dag is run once, and is included for convenience. 
 
 `populate` provides initial data population, based on .env settings. This dag is run once.
-!['Example of populate DAG with 'AAPL' and 'GOOG' stocks](https://github.com/IPopovSci/airflow_etl_stock_pipeline/blob/3648af304f53d0217d3884f220f4445508c4a8c2/PopulateSteps.png)
+![Example of populate DAG with 'AAPL' and 'GOOG' stocks](https://github.com/IPopovSci/airflow_etl_stock_pipeline/blob/3648af304f53d0217d3884f220f4445508c4a8c2/PopulateSteps.png)
 
 `update` performs data update daily. It also checks for the latest update date of information in Cloudant database, and will fill any gaps that might exist.
-!['Example of update DAG with 'AAPL' and 'GOOG' stocks](https://github.com/IPopovSci/airflow_etl_stock_pipeline/blob/3648af304f53d0217d3884f220f4445508c4a8c2/UpdateSteps.png)
+![Example of update DAG with 'AAPL' and 'GOOG' stocks](https://github.com/IPopovSci/airflow_etl_stock_pipeline/blob/3648af304f53d0217d3884f220f4445508c4a8c2/UpdateSteps.png)
 
 ***.env settings***
 ```
