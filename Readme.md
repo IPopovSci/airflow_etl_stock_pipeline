@@ -53,8 +53,10 @@ This pipeline features 3 dags to extract, load and transform stock-related data.
 database for staging, and required tables. This dag is run once, and is included for convenience. 
 
 `populate` provides initial data population, based on .env settings. This dag is run once.
+!['Example of populate DAG with 'AAPL' and 'GOOG' stocks](https://github.com/IPopovSci/airflow_etl_stock_pipeline/blob/3648af304f53d0217d3884f220f4445508c4a8c2/PopulateSteps.png)
 
 `update` performs data update daily. It also checks for the latest update date of information in Cloudant database, and will fill any gaps that might exist.
+!['Example of update DAG with 'AAPL' and 'GOOG' stocks](https://github.com/IPopovSci/airflow_etl_stock_pipeline/blob/3648af304f53d0217d3884f220f4445508c4a8c2/UpdateSteps.png)
 
 ***.env settings***
 ```
