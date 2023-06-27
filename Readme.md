@@ -17,6 +17,8 @@ An airflow pipeline for daily updates on selected stock market companies news an
 This project leverages Apache Airflow to extract, transform, and load prominent data from two stock market APIs. The pipeline is designed to pull historical price data and news articles related to any specific stock or stocks of interest.
 This pipeline uses Postgres for the staging, and IBM Cloudant as final NOSQL storage database. The structure of this project makes it easy to implement additional APIs if necessary.
 
+Examine the data of this project [In this Tableau Dashboard](https://public.tableau.com/app/profile/ivan.popov2140/viz/WIP_Stocknews/Dashboard1)
+
 ### Technologies and libraries
 
 * Python 3.9
