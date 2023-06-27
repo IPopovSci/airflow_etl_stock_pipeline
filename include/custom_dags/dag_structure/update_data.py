@@ -46,7 +46,7 @@ def update_info():
                                                           'table': data_type},
                                                   task_id=f"drop_view_{symbol}_{data_type}", autocommit=True)
 
-            get_last_date_and_rev >> get_old_cloud_data >> get_new_data >> transform_data >> merge_update >> create_doc >> drop_view
+            get_last_date_and_rev >> [get_old_cloud_data , get_new_data] >> transform_data >> merge_update >> create_doc >> drop_view
 
         group_news.append(tg_get_transform_data_news())
         @task_group(group_id=f'update_{ticker}_stocks')
@@ -80,7 +80,7 @@ def update_info():
                                                           'table': data_type},
                                                   task_id=f"drop_view_{symbol}_{data_type}", autocommit=True)
 
-            get_last_date_and_rev >> get_old_cloud_data>> get_new_data >> merge_update >> create_doc >> drop_view
+            get_last_date_and_rev >> [get_old_cloud_data, get_new_data] >> merge_update >> create_doc >> drop_view
         group_stocks.append(tg_get_transform_data_stocks())
 
     [group_news,group_stocks]
