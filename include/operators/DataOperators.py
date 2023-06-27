@@ -37,4 +37,5 @@ class GetDataAPI(BaseOperator):
         sql_insert = SQL("""INSERT INTO {table} (ticker,info) VALUES (%(symbol)s,%(data)s) ON CONFLICT (ticker) DO UPDATE SET info=excluded.info;""").format(table=Identifier(self.data_type))
         cursor.execute(sql_insert,vars={'symbol':self.symbol,'data':data})
         conn.commit()
+        conn.close()
         return None

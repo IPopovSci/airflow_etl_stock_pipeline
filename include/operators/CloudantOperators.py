@@ -39,6 +39,7 @@ class CreateDocumentOperator(BaseOperator): #data_type Stock or News
         self.data = cursor.fetchall()[0][0]
 
         hook.create_document(db=self.db, data=self.data, symbol=self.symbol, rev=self.rev)
+        conn.close()
         return None
 
 class CreateDateTimeViewOperator(BaseOperator):
@@ -105,5 +106,6 @@ class GetDocumentOperator(BaseOperator): #data_type stock or News
         sql_insert = SQL("INSERT INTO {table} (ticker,info) VALUES (%(oldtick)s,%(data)s) ON CONFLICT (ticker) DO UPDATE SET info=excluded.info;").format(table=Identifier(self.data_type))
         cursor.execute(sql_insert,vars={'oldtick':self.symbol + '_old','data':old_data})
         conn.commit()
+        conn.close()
 
         return None

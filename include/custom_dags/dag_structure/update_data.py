@@ -29,6 +29,7 @@ def update_info():
                 , task_id=f"GetNewAPIData_{symbol}_{data_type}", db=db, symbol=symbol)
             transform_data = SQLExecuteQueryOperator(sql='transform_news.sql', parameters={'symbol': symbol},
                                                     task_id=f"TransformNewData_{symbol}_{data_type}", autocommit=True)
+            # TODO:Sql doesn't like BRK-B stock due to dash. Check how Twelvedata handles the ticker, might need to switch the variable to not have dash in SQL requests.
             merge_update = SQLExecuteQueryOperator(sql='merge_update.sql',
                                                   params={'view_name': str(symbol + '_' + data_type).lower(),
                                                           'table': data_type},
@@ -62,6 +63,7 @@ def update_info():
                 start_date_api=f"{{{{ti.xcom_pull(task_ids='update_{ticker}_stocks.GetRev_{symbol}_{data_type}',key='last_update_{symbol}_{data_type}')}}}}",
                 data_type=data_type, end_date=pendulum.now('UTC') \
                 , task_id=f"GetNewAPIData_{symbol}_{data_type}", db=db, symbol=symbol)
+            #TODO:Sql doesn't like BRK-B stock due to dash. Check how Twelvedata handles the ticker, might need to switch the variable to not have dash in SQL requests.
             merge_update = SQLExecuteQueryOperator(sql='merge_update.sql',
                                                   params={'view_name': str(symbol + '_' + data_type).lower(),
                                                           'table': data_type},
