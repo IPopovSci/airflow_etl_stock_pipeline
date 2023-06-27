@@ -1,0 +1,1 @@
+"""drop view {{params.view_name}}"""
