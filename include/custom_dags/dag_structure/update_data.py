@@ -43,7 +43,7 @@ def update_info():
             drop_view = SQLExecuteQueryOperator(sql='delete_view.sql',
                                                   params={'view_name': str(symbol + '_' + data_type).lower(),
                                                           'table': data_type},
-                                                  task_id=f"UpdateAndMerge_{symbol}_{data_type}", autocommit=True)
+                                                  task_id=f"drop_view_{symbol}_{data_type}", autocommit=True)
 
             get_last_date_and_rev >> get_old_cloud_data >> get_new_data >> transform_data >> merge_update >> create_doc >> drop_view
 
@@ -76,7 +76,7 @@ def update_info():
             drop_view = SQLExecuteQueryOperator(sql='delete_view.sql',
                                                   params={'view_name': str(symbol + '_' + data_type).lower(),
                                                           'table': data_type},
-                                                  task_id=f"UpdateAndMerge_{symbol}_{data_type}", autocommit=True)
+                                                  task_id=f"drop_view_{symbol}_{data_type}", autocommit=True)
 
             get_last_date_and_rev >> get_old_cloud_data>> get_new_data >> merge_update >> create_doc >> drop_view
         group_stocks.append(tg_get_transform_data_stocks())
